@@ -3,10 +3,13 @@
   become: yes
   vars:
     zk:
-      version: 3.4.8
+      version: 3.5.8
+      # version: 3.4.8
+      # version: 3.6.2
       mirror: http://www-us.apache.org/dist
       dataDir: /var/lib/zookeeper
       installDir: "/opt"
+
   tasks:
 
   # Install Oracle JVM
@@ -28,7 +31,7 @@
     set_fact: zk_dir="{{zk.installDir}}/{{zk_name}}"
   - name: Zookeeper | Ensure Zookeeper tar is downloaded
     get_url:
-      url: "{{zk.mirror}}/zookeeper/{{zk_name}}/{{zk_name}}.tar.gz"
+      url: "{{zk.mirror}}/zookeeper/apache-{{zk_name}}/{{zk_name}}.tar.gz"
       dest: "/tmp"
   - name: ZooKeeper | Ensure tar is extracted
     command: tar xzf /tmp/{{zk_name}}.tar.gz chdir="{{zk.installDir}}"
